@@ -8,6 +8,94 @@
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
   
   <style>
+  /* ===== PASSWORD LOCK STYLES ===== */
+#pw-overlay {
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(8px);
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  animation: fadeIn 0.4s ease;
+}
+
+#pw-modal {
+  background: #0b1225;
+  color: #fff;
+  padding: 22px;
+  width: 90%;
+  max-width: 320px;
+  border-radius: 32px;
+  text-align: center;
+  animation: slideUp 0.45s ease;
+}
+
+#pw-modal h2 {
+  margin: 0 0 12px;
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+#pw-modal input {
+  width: 100%;
+  max-width: 260px;     /* ⬅️ ini yang bikin rapi */
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  margin: 0 auto 14px; /* ⬅️ auto center */
+  display: block;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+#pw-modal button {
+  width: 100%;
+  max-width: 100px;     /* ⬅️ SAMA DENGAN INPUT */
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(180deg, #0b84ff, #0669d9);
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  margin: 0 auto;       /* ⬅️ TENGAH */
+  display: block;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+#pw-modal button:hover {
+  filter: brightness(1.05);
+}
+#pw-modal button:active {
+  transform: scale(0.98);
+}
+#pw-modal .error {
+  color: #ff6b6b;
+  font-size: 13px;
+  margin-top: 8px;
+  display: none;
+  font-weight: 700; /* ⬅️ BIKIN TEBEL */
+}
+
+/* Animations */
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes slideDown {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(40px); opacity: 0; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
     :root {
       /* Variabel Warna */
       --accent: #0b84ff;
@@ -301,6 +389,15 @@
   <script type='text/javascript' src='//pl27971081.effectivegatecpm.com/75/4d/89/754d89bb0699b528a6f6b846376e68cb.js'></script>
 </head>
 <body class="">
+  <!-- PASSWORD OVERLAY -->
+<div id="pw-overlay">
+  <div id="pw-modal">
+    <h2>MASUKKAN PASSWORD</h2>
+    <input type="password" id="pw-input" placeholder="Password..." autofocus>
+    <button onclick="unlockPage()">ENTER</button>
+    <div class="error" id="pw-error">PASSWORD SALAH</div>
+  </div>
+</div>
 
   <div class="container">
     <header class="animate-on-load" style="animation-delay: 0.1s;">
@@ -321,7 +418,7 @@
     <section class="card animate-on-load" style="animation-delay: 0.2s;">
       <div class="notice">
         <strong>Perhatian:</strong>
-        <p style="margin:8px 0 0">Saat mengklik tombol download akan diarahkan ke iklan. Jika muncul iklan atau halaman lain, <strong>klik kembali</strong> lalu klik tombol download lagi 2x tap.</p>
+        <p style="margin:8px 0 0">Saat mengklik tombol download akan diarahkan ke iklan. Jika muncul iklan atau halaman lain, <strong>klik kembali</strong> lalu klik tombol download lagi 2x tap. disini kalian bebas mau download yang mana, karena ini hanya berbeda di fitur effect nya saja</p>
       </div>
 
       
@@ -329,32 +426,45 @@
       <div class="versions">
         
         <div class="version">
-          <h3>ULTRA MOTION BIASA</h3>
+          <h3>ULTRA MOTION NO EFFECTS ANIMATION & NO THUMBNAIL</h3>
           <p style="margin:8px 0; color:var(--text-muted); font-size:12px;">Note : Versi Biasa pada Ultra Motion ini harus menghapus AM/UM Sebelumnya, Tetapi Kalau Versi sebelumnya UM Biasa yang sama, Kamu bisa langsung Pasang aja Dengan klik Update, Selamat Mencoba
 </p>
           <div class="downloads">
             <div class="download-btn" style="grid-column: span 2;">
-              <button class="btn" data-ad="https://www.effectivegatecpm.com/z55w4h3qx2?key=b3e81a33d4a9ac5be6d499f5f1bd6274" data-dl="https://sfl.gl/7zLP" onclick="handleDownload(this)" style="margin-top: 8px;">Download</button>
+              <h3>UM 6.2.0 BIASA</h3>
+              <button class="btn" data-ad="https://www.effectivegatecpm.com/z55w4h3qx2?key=b3e81a33d4a9ac5be6d499f5f1bd6274" data-dl="https://sfl.gl/TeL4z" onclick="handleDownload(this)" style="margin-top: 8px;">Download</button>
+            </div>
+            <div class="downloads">
+            <div class="download-btn" style="grid-column: span 2;">
+              <h3>UM 6.2.0 CLONE</h3>
+              <button class="btn" data-ad="https://www.effectivegatecpm.com/z55w4h3qx2?key=b3e81a33d4a9ac5be6d499f5f1bd6274" data-dl="https://sfl.gl/GbW0Dk" onclick="handleDownload(this)" style="margin-top: 8px;">Download</button>
             </div>
           </div>
         </div>
         <div class="version">
-          <h3>ULTRA MOTION CLONE</h3>
+          <h3>ULTRA MOTION WITH EFFECTS ANIMATION</h3>
           <p style="margin:8px 0; color:var(--text-muted); font-size:12px;">Note : Versi Clone ini juga bisa langsung di pasang ya, Tanpa Hapus AM/UM yang sudah ada sebelumnya, Jika mengalami error saat import Preset 5MB+ Ulangi Terus Importnya Karena Banyak Pemakaian, Jadi Bukan Kamu Aja yang pakai apk ini, Untuk Info Update ada di bawah, Terima Kasih
 </p>
           <div class="downloads">
             <div class="download-btn" style="grid-column: span 2;">
-              <button class="btn" data-ad="https://www.effectivegatecpm.com/z55w4h3qx2?key=b3e81a33d4a9ac5be6d499f5f1bd6274" data-dl="https://sfl.gl/Ubp0jc" onclick="handleDownload(this)" style="margin-top: 8px;">Download</button>
+              <h3>UM 6.2.0 BIASA</h3>
+              <button class="btn" data-ad="https://www.effectivegatecpm.com/z55w4h3qx2?key=b3e81a33d4a9ac5be6d499f5f1bd6274" data-dl="https://sfl.gl/rZqGGVDh" onclick="handleDownload(this)" style="margin-top: 8px;">Download</button>
+            </div>
+            <div class="downloads">
+            <div class="download-btn" style="grid-column: span 2;">
+              <h3>UM 6.2.0 CLONE</h3>
+              <button class="btn" data-ad="https://www.effectivegatecpm.com/z55w4h3qx2?key=b3e81a33d4a9ac5be6d499f5f1bd6274" data-dl="https://sfl.gl/Mfy51q" onclick="handleDownload(this)" style="margin-top: 8px;">Download</button>
             </div>
           </div>
         </div>
           
           <div class="version">
-          <h3>INFO MOD VERSI 6.1.0</h3>
+          <h3>INFO MOD VERSI 6.2.0</h3>
 <div class="app-info">
   <ul class="app-info-list">
-    <li>Premium Full Unlock (Efek & Fitur Pro Terbuka)</li>
-    <li>Mendukung Resolusi Ekspor hingga 4K</li>
+    <li>Premium Full Unlock</li>
+    <li>Efek & Fitur Pro Terbuka</li>
+    <li>Mendukung Resolusi hingga 2K</li>
     <li>Bebas Iklan</li>
     <li>Tanpa Watermark</li>
     <li>Render Stabil</li>
@@ -387,7 +497,7 @@
   </a>
 
   <div class="promo-notification" id="promo-notif">
-    Alight Motion Premium Rp. 4K  di sini👉
+    Alight Motion Premium Rp. 2K  di sini👉
   </div>
 
   <script>
@@ -484,5 +594,32 @@
       
     });
   </script>
+  <script>
+(function(){
+  // Jika sudah unlock, popup tidak muncul lagi (meski refresh)
+  if(sessionStorage.getItem('pageUnlocked') === '1'){
+    document.getElementById('pw-overlay').style.display = 'none';
+  }
+})();
+
+function unlockPage(){
+  const input = document.getElementById('pw-input');
+  const error = document.getElementById('pw-error');
+
+  if(input.value === 'THANKS'){
+    sessionStorage.setItem('pageUnlocked','1');
+
+    const overlay = document.getElementById('pw-overlay');
+    overlay.style.animation = 'fadeOut 0.4s ease forwards';
+    overlay.querySelector('#pw-modal')
+      .style.animation = 'slideDown 0.4s ease forwards';
+
+    setTimeout(() => overlay.remove(), 400);
+  } else {
+    error.style.display = 'block';
+    input.value = '';
+  }
+}
+</script>
 </body>
 </html>
