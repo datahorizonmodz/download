@@ -1,467 +1,461 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>DATZON X-DESIGN - Download</title>
-  
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
-  
-  <style>
-    :root {
-      /* Variabel Warna */
-      --accent: #0b84ff;
-      --success: #22c55e;
-      --warning: #ffb86b;
-
-      /* Mode Gelap (Default) */
-      --bg-dark: linear-gradient(180deg, #071023 0%, #07183a 100%);
-      --card-bg-dark: rgba(255, 255, 255, 0.03);
-      --card-border-dark: rgba(255, 255, 255, 0.06);
-      --notice-bg-dark: rgba(255, 255, 255, 0.02);
-      --version-bg-dark: rgba(255, 255, 255, 0.02);
-      --download-btn-bg-dark: linear-gradient(180deg, #06243f, #08304a);
-      --text-primary-dark: #e6eef8;
-      --text-muted-dark: #9aa4b2;
-      --text-success-dark: #04210f;
-
-      /* Mode Terang */
-      --bg-light: #f0f4f9;
-      --card-bg-light: #ffffff;
-      --card-border-light: #e2e8f0;
-      --notice-bg-light: #fffbeb;
-      --version-bg-light: #f8fafc;
-      --download-btn-bg-light: #e2e8f0;
-      --text-primary-light: #0f1724;
-      --text-muted-light: #475569;
-      --text-success-light: #ffffff;
-      
-      /* Inisialisasi variabel dinamis */
-      --bg: var(--bg-dark);
-      --card-bg: var(--card-bg-dark);
-      --card-border: var(--card-border-dark);
-      --notice-bg: var(--notice-bg-dark);
-      --version-bg: var(--version-bg-dark);
-      --download-btn-bg: var(--download-btn-bg-dark);
-      --text-primary: var(--text-primary-dark);
-      --text-muted: var(--text-muted-dark);
-      --text-success: var(--text-success-dark);
-    }
-    
-    body {
-      /* TUGAS 2: Terapkan font Quicksand ke seluruh halaman */
-      font-family: 'Quicksand', Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text-primary);
-      margin: 0;
-      padding: 28px;
-      transition: background 0.3s ease, color 0.3s ease;
-    }
-    
-    /* Tema Mode Terang */
-    body.light-mode {
-      --bg: var(--bg-light);
-      --card-bg: var(--card-bg-light);
-      --card-border: var(--card-border-light);
-      --notice-bg: var(--notice-bg-light);
-      --version-bg: var(--version-bg-light);
-      --download-btn-bg: var(--download-btn-bg-light);
-      --text-primary: var(--text-primary-light);
-      --text-muted: var(--text-muted-light);
-      --text-success: var(--text-success-light);
-    }
-
-    .container { max-width: 980px; margin: 0 auto; }
-    
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 18px;
-    }
-    
-    .header-left { display: flex; align-items: center; gap: 16px; }
-    .logo { width: 64px; height: 64px; background: var(--accent); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; }
-    h1 { margin: 0; font-size: 20px; }
-    h1 a { color: inherit; text-decoration: none; }
-    
-    .card { background: var(--card-bg); padding: 18px; border-radius: 12px; margin-bottom: 14px; transition: background 0.3s ease; }
-    
-    .notice {
-      background: var(--notice-bg);
-      padding: 12px;
-      border-left: 4px solid var(--warning);
-      color: var(--text-muted);
-      border-radius: 8px;
-      transition: background 0.3s ease, color 0.3s ease;
-    }
-    
-    .versions { 
-      /* Diubah menjadi tata letak satu kolom untuk tombol download tunggal */
-      display: flex;
-      justify-content: center; /* Pusatkan tombol di tengah */
-      gap: 12px; 
-      margin-top: 24px; /* Tambah margin atas */
-    }
-    .version { 
-      background: var(--version-bg); 
-      padding: 20px 24px; /* Tambah padding untuk area yang lebih besar */
-      border-radius: 10px; 
-      transition: background 0.3s ease; 
-      max-width: 400px; /* Batasi lebar agar tidak terlalu besar */
-      width: 100%;
-      text-align: center;
-    }
-    
-    .btn {
-      display: block;
-      width: 100%;
-      box-sizing: border-box;
-      text-align: center;
-      padding: 14px 20px; /* Padding lebih besar */
-      border-radius: 10px;
-      background: var(--accent);
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      cursor: pointer;
-      border: none;
-      transition: filter 0.2s ease, background-color 0.2s ease;
-      font-size: 18px; /* Ukuran font lebih besar */
-    }
-    .btn.secondary { background: transparent; border: 1px solid var(--card-border); }
-    .btn.complete { background: var(--success); color: var(--text-success); }
-    .btn.complete:hover { filter: brightness(0.95); }
-    .btn[disabled] { opacity: 0.6; cursor: progress; }
-    
-    /* Hapus gaya .downloads karena tidak digunakan lagi untuk grid */
-    .downloads { 
-      display: block; 
-      margin-top: 12px; 
-    }
-    .download-btn { 
-      /* Hapus style khusus, biarkan .version yang menangani */
-      padding: 0; 
-      background: none; 
-      text-align: center; 
-      cursor: default; 
-      transition: none; 
-    }
-    
-    small { color: var(--text-muted); transition: color 0.3s ease; }
-    footer { margin-top: 20px; color: var(--text-muted); font-size: 13px; transition: color 0.3s ease; }
-    
-    /* 1. Gaya untuk link tutorial di footer (menggantikan .btn-mini) */
-    footer a {
-      color: var(--warning); /* Warna agar menonjol, konsisten dengan .notice */
-      text-decoration: none; /* Hilangkan garis bawah default */
-    }
-    footer a:hover {
-      text-decoration: underline; /* Tampilkan garis bawah saat di-hover */
-    }
-
-    /* --- 2. Switch Mode Gelap/Terang --- */
-    .switch { position: relative; display: inline-block; width: 50px; height: 28px; }
-    .switch input { opacity: 0; width: 0; height: 0; }
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #3e4c5b; /* Latar slider saat mode gelap */
-      transition: .4s;
-      border-radius: 28px;
-    }
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 20px;
-      width: 20px;
-      left: 4px;
-      bottom: 4px;
-      background-color: white;
-      transition: .4s;
-      border-radius: 50%;
-    }
-    body.light-mode .slider { background-color: #ccc; }
-    input:checked + .slider { background-color: var(--accent); }
-    input:checked + .slider:before { transform: translateX(22px); }
-
-    /* --- 3. Tombol Mengambang (FAB) --- */
-    .fab {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 56px;
-      height: 56px;
-      background-color: var(--accent);
-      color: #fff;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      text-decoration: none;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      z-index: 1000;
-      transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
-    }
-    .fab:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-    }
-
-    /* --- 4. Notifikasi Promo --- */
-    .promo-notification {
-      position: fixed;
-      bottom: 30px; /* Sejajar dengan FAB */
-      right: 86px; /* 56px (FAB) + 20px (margin) + 10px (jarak) */
-      background-color: var(--warning);
-      color: #1a1a1a; /* Teks gelap agar terbaca */
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 500;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-      z-index: 999;
-      opacity: 0;
-      transform: translateX(-30px); /* Mulai dari kiri */
-      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-    }
-    .promo-notification.show {
-      opacity: 1;
-      transform: translateX(0); /* Slide ke posisi normal */
-    }
-    .promo-notification.hide {
-      opacity: 0;
-      transform: translateX(30px); /* Hilang ke kanan */
-    }
-    
-    /* --- 5. Animasi Load Halaman --- */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .animate-on-load {
-      /* Sembunyikan elemen sebelum animasi */
-      opacity: 0;
-      animation: fadeInUp 0.6s ease-out forwards;
-    }
-
-    @media (max-width: 720px) {
-      /* Hanya perlu 1 kolom karena hanya 1 tombol */
-      .versions { 
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-      .version {
-        padding: 18px;
-        max-width: 100%;
-      }
-      .downloads { display: block; }
-      .promo-notification {
-        /* Pindahkan notif ke atas FAB di mobile */
-        width: calc(100% - 90px);
-        text-align: center;
-        bottom: 86px; /* Di atas FAB */
-        right: 20px;
-        left: 20px;
-        margin: 0 auto;
-        transform: translateY(20px); /* Mulai dari bawah */
-      }
-      .promo-notification.show {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      .promo-notification.hide {
-        opacity: 0;
-        transform: translateY(20px); /* Hilang ke bawah */
-      }
-    }
-  </style>
-  
-  <script>
-    (function() {
-      try {
-        const theme = localStorage.getItem('theme');
-        if (theme === 'light') {
-          document.documentElement.classList.add('light-mode');
-          // Ganti body.light-mode di CSS menjadi :root.light-mode body {}
-          // Untuk sementara, kita pakai di body saja
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DATZON - Mission Download</title>
+    <style>
+        /* =========================================
+           CSS VARIABLES & RESET
+           ========================================= */
+        :root {
+            --bg-color: #f4f6f8;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --heading-color: #111111;
+            --border-color: #e0e0e0;
+            
+            --primary-red: #ff0000;
+            --primary-green: #28a745;
+            --primary-grey: #b0b0b0;
+            --whatsapp-color: #25D366;
+            --notice-bg: #d4edda;
+            --notice-text: #155724;
+            --shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
-      } catch (e) {
-        console.warn('Gagal membaca tema dari localStorage', e);
-      }
-    })();
-  </script>
-  <script type='text/javascript' src='//pl27971081.effectivegatecpm.com/75/4d/89/754d89bb0699b528a6f6b846376e68cb.js'></script>
+
+        /* Dark Mode Variables */
+        body.dark-mode {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --heading-color: #ffffff;
+            --border-color: #333333;
+            --notice-bg: #1e4d2b;
+            --notice-text: #d4edda;
+            --shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* =========================================
+           HEADER
+           ========================================= */
+        header {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px 0;
+        }
+
+        .brand {
+            font-size: 24px;
+            font-weight: 800;
+            text-decoration: none;
+            color: var(--heading-color);
+            cursor: pointer;
+            letter-spacing: 1px;
+        }
+
+        /* Toggle Switch */
+        .theme-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+        }
+        .theme-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: var(--primary-green);
+        }
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        /* =========================================
+           MAIN CARD
+           ========================================= */
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        /* Notice Box */
+        .notice-box {
+            background-color: var(--notice-bg);
+            color: var(--notice-text);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            border-left: 5px solid var(--primary-green);
+            text-align: left;
+        }
+        .notice-box strong {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        /* Buttons General */
+        .btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.1s, opacity 0.3s;
+        }
+        .btn:active {
+            transform: scale(0.98);
+        }
+        .btn-icon {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        /* Mission Buttons Colors */
+        .btn-mission {
+            background-color: var(--primary-red);
+        }
+        .btn-mission.completed {
+            background-color: var(--primary-green) !important;
+            cursor: default;
+        }
+        .btn-mission.loading {
+            background-color: #cc0000; /* Darker red when loading */
+            cursor: wait;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            margin: 15px 0 30px 0;
+        }
+        .progress-bar {
+            flex: 1;
+            height: 6px;
+            background-color: var(--border-color);
+            border-radius: 3px;
+            transition: background-color 0.5s ease;
+        }
+        .progress-bar.active {
+            background-color: var(--primary-green);
+        }
+
+        /* Complete & Download Section */
+        .divider {
+            height: 1px;
+            background-color: var(--border-color);
+            margin: 20px 0;
+        }
+
+        .btn-complete {
+            background-color: var(--primary-grey);
+            cursor: not-allowed;
+            margin-bottom: 15px;
+        }
+        .btn-complete.ready {
+            background-color: var(--primary-red);
+            cursor: pointer;
+            animation: pulse 1.5s infinite;
+        }
+        .btn-complete.verified {
+            background-color: var(--primary-green);
+            cursor: default;
+            animation: none;
+        }
+
+        .btn-download {
+            background-color: var(--primary-grey);
+            cursor: not-allowed;
+            font-size: 18px;
+            padding: 18px;
+        }
+        .btn-download.ready {
+            background-color: var(--primary-green);
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+        }
+
+        /* Spinner Animation */
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 3px solid #ffffff;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+        .loading .spinner {
+            display: block;
+        }
+        .loading span {
+            display: none; /* Hide text when loading */
+        }
+        .loading .btn-icon {
+            display: none; /* Hide icon when loading */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+        }
+
+    </style>
 </head>
-<body class=""> <div class="container">
-    <header class="animate-on-load" style="animation-delay: 0.1s;">
-      <div class="header-left">
-        <div class="logo">DZ</div>
-        <div>
-          <h1><a id="yt-link" href="https://youtube.com/@informatifdata?si=viFmGb0ReRhSiznE" target="_blank">DATZON X-DESIGN</a></h1>
-          <small>Klik judul untuk ke channel YouTube</small>
-        </div>
-      </div>
-      
-      <label class="switch" title="Ganti tema">
-        <input type="checkbox" id="theme-toggle">
-        <span class="slider round"></span>
-      </label>
+<body>
+
+    <header>
+        <a href="https://youtube.com/@informatifdata?si=qIyJ7lgDBDOCFmOt" target="_blank" class="brand">DATZON</a>
+        <label class="theme-switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider"></span>
+        </label>
     </header>
-    
-    <section class="card animate-on-load" style="animation-delay: 0.2s;">
-      <div class="notice">
-        <strong>Perhatian:</strong>
-        <p style="margin:8px 0 0">Saat mengklik tombol download akan diarahkan ke iklan. Jika muncul iklan atau halaman lain, <strong>klik kembali</strong> lalu klik tombol download lagi.</p>
-      </div>
 
-      <div style="margin-top:12px">
-        <small>Versi X-DESIGN saat ini: <strong>1.10.0</strong>. Versi ini Support di semua Device ya, New Version jika ada error Comment aja di Video Youtube ya, Thank You.</small>
-      </div>
-
-      <div class="versions">
-        <div class="version">
-          <h3>X-DESIGN New Versi</h3>
-          <p style="margin:8px 0">Update: New account, Support 4K HD, No Limit UHD AI, Unlock Premium, No Iklan, No Watermark, No password. Ditambah perbaikan Performa dan Stabilitas.</p>
-
-          <div class="downloads">
-            <div class="download-btn">
-              <div>Download X-DESIGN </div> 
-              <button 
-                class="btn" 
-                data-ad="https://www.effectivegatecpm.com/z55w4h3qx2?key=b3e81a33d4a9ac5be6d499f5f1bd6274" 
-                data-dl="https://sfl.gl/ID88f" 
-                onclick="handleDownload(this)" 
-                style="margin-top: 8px;"
-              >
-                Download
-              </button>
-            </div>
-            </div>
+    <div class="container">
+        
+        <div class="notice-box">
+            <strong>NOTICE / PERINGATAN</strong>
+            Saat mengklik tombol download akan diarahkan ke iklan. Jika muncul iklan atau halaman lain, klik kembali lalu klik tombol download lagi.
         </div>
-      </div>
 
-      <footer class="animate-on-load" style="animation-delay: 0.3s;">
-        <p>Catatan: Semua link menggunakan <i>SafeLinku</i> dan <i>SafeFileku</i>, jadi jika tidak punya skil untuk melewati link tersebut tonton
-          <a href="https://youtu.be/gTUJfiU3pb0?si=Kp79XF6D36Yy06xV" target="_blank" rel="noopener noreferrer">
-            <i>Tutorial Youtube ya</i>
-          </a>, Thank You.
-        </p>
-      </footer>
-    </section>
+        <button id="btn-m1" class="btn btn-mission" onclick="startMission(1, 'https://youtu.be/to-dirdvj20?si=hrBd_LFrY512Ejwu')">
+            <svg class="btn-icon" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+            <span>Like Video YouTube</span>
+            <div class="spinner"></div>
+        </button>
 
-  </div>
+        <button id="btn-m2" class="btn btn-mission" onclick="startMission(2, 'https://youtube.com/@informatifdata?si=qIyJ7lgDBDOCFmOt')">
+            <svg class="btn-icon" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+            <span>Subscribe Channel YouTube</span>
+            <div class="spinner"></div>
+        </button>
 
-  <a href="https://dazon.web.app/store.html" target="_blank" rel="noopener noreferrer" class="fab" aria-label="Toko Store">
-    🛒
-  </a>
+        <button id="btn-m3" class="btn btn-mission" onclick="startMission(3, 'https://whatsapp.com/channel/0029VaLWvFyKWEKjhLtp0H3j')">
+            <svg class="btn-icon" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+            <span>Join Saluran WhatsApp</span>
+            <div class="spinner"></div>
+        </button>
 
-  <div class="promo-notification" id="promo-notif">
-    X-DESIGN Premium Rp. 4K di sini👉
-  </div>
+        <div class="progress-container">
+            <div id="bar-1" class="progress-bar"></div>
+            <div id="bar-2" class="progress-bar"></div>
+            <div id="bar-3" class="progress-bar"></div>
+        </div>
 
-  <script>
-    // --- FUNGSI ASLI (Tidak Diubah) ---
-    function isBusy(btn) { return btn.getAttribute('data-busy') === '1'; }
-    function setBusy(btn, val) { btn.setAttribute('data-busy', val ? '1' : '0'); }
+        <div class="divider"></div>
 
-    function handleDownload(btn) {
-      if (isBusy(btn)) return;
-      const adLink = btn.getAttribute('data-ad') || 'https://example.com/ad';
-      const dlLink = btn.getAttribute('data-dl') || 'https://example.com/download.apk';
+        <button id="btn-complete" class="btn btn-complete" onclick="startComplete()" disabled>
+            <span>COMPLETE</span>
+            <div class="spinner"></div>
+        </button>
 
-      try { window.open(adLink, '_blank'); } catch (e) { console.log('Gagal membuka tab iklan', e); }
+        <button id="btn-download" class="btn btn-download" onclick="startDownload()" disabled>
+            <svg class="btn-icon" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+            <span>DOWNLOAD</span>
+        </button>
 
-      startCountdownOnButton(btn, dlLink, 10);
-    }
+    </div>
 
-    function startCountdownOnButton(btn, downloadUrl, seconds) {
-      setBusy(btn, true);
-      btn.disabled = true;
-      const originalText = btn.textContent;
-      let s = seconds;
-      btn.textContent = `Menyiapkan... (${s}s)`;
+    <script>
+        // =========================================
+        // CONFIGURATION
+        // =========================================
+        const ADS_URL = "https://www.effectivegatecpm.com/z55w4h3qx2?key=b3e81a33d4a9ac5be6d499f5f1bd6274"; // Ganti dengan link iklan/safe link Anda
+        const DOWNLOAD_URL = "https://sfl.gl/9UEYtw"; // Ganti dengan link download asli
+        const MISSION_DURATION = 10000; // 10 Detik
+        const VERIFY_DURATION = 3000;   // 3 Detik
 
-      const id = setInterval(() => {
-        s -= 1;
-        if (s > 0) {
-          btn.textContent = `Menyiapkan... (${s}s)`;
-        } else {
-          clearInterval(id);
-          const a = document.createElement('a');
-          a.className = 'btn complete';
-          a.href = downloadUrl;
-          a.target = '_blank';
-          a.rel = 'noopener noreferrer';
-          a.textContent = 'Unduh Sekarang';
-          btn.parentNode.replaceChild(a, btn);
-          // Note: setBusy(btn, false) tidak lagi relevan karena btn sudah diganti
-        }
-      }, 1000);
-    }
-    
-    // --- PENAMBAHAN FUNGSI BARU (Tidak Diubah) ---
-    
-    document.addEventListener('DOMContentLoaded', function() {
-      
-      // --- 2. Logika Mode Gelap/Terang ---
-      const themeToggle = document.getElementById('theme-toggle');
-      
-      // Sinkronkan checkbox dengan state saat ini (dari script <head>)
-      if (localStorage.getItem('theme') === 'light') {
-        document.body.classList.add('light-mode');
-        if(themeToggle) themeToggle.checked = true;
-      } else {
-        document.body.classList.remove('light-mode');
-      }
+        // =========================================
+        // STATE MANAGEMENT
+        // =========================================
+        let state = {
+            m1: false,
+            m2: false,
+            m3: false,
+            verified: false
+        };
 
-      if (themeToggle) {
-        themeToggle.addEventListener('change', function() {
-          if (this.checked) {
-            document.body.classList.add('light-mode');
-            localStorage.setItem('theme', 'light');
-          } else {
-            document.body.classList.remove('light-mode');
-            localStorage.setItem('theme', 'dark');
-          }
+        // =========================================
+        // DOM ELEMENTS
+        // =========================================
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        const btnComplete = document.getElementById('btn-complete');
+        const btnDownload = document.getElementById('btn-download');
+
+        // =========================================
+        // THEME TOGGLE LOGIC
+        // =========================================
+        themeToggle.addEventListener('change', () => {
+            if (themeToggle.checked) {
+                body.classList.add('dark-mode');
+            } else {
+                body.classList.remove('dark-mode');
+            }
         });
-      }
-      
-      // --- 4. Logika Notifikasi Promo ---
-      const promoNotif = document.getElementById('promo-notif');
-      if (promoNotif) {
-        // Teks Notifikasi Promo diubah menjadi X-DESIGN
-        promoNotif.textContent = 'Alight Motion Premium Rp. 4K  di sini👉';
 
-        function cyclePromo() {
-          promoNotif.classList.remove('hide'); // Reset jika ada
-          promoNotif.classList.add('show');     // Muncul (slide-in)
-          
-          // Set timer untuk menghilangkan
-          setTimeout(() => {
-            promoNotif.classList.remove('show');
-            promoNotif.classList.add('hide'); // Hilang (slide-out)
-          }, 5000); // Tampil selama 5 detik
+        // =========================================
+        // MISSION LOGIC
+        // =========================================
+        function startMission(id, url) {
+            // Jika sudah selesai, abaikan klik
+            if (state['m' + id]) return;
+
+            const btn = document.getElementById(`btn-m${id}`);
+            const bar = document.getElementById(`bar-${id}`);
+
+            // Buka link di tab baru
+            window.open(url, '_blank');
+
+            // Ubah UI ke Loading
+            btn.classList.add('loading');
+            btn.disabled = true;
+
+            // Countdown Timer (Tanpa Angka, hanya spinner)
+            setTimeout(() => {
+                // Selesai Loading
+                btn.classList.remove('loading');
+                btn.classList.add('completed');
+                
+                // Ubah Teks & Icon
+                btn.innerHTML = `<svg class="btn-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> <span>COMPLETE</span>`;
+                
+                // Update Progress Bar
+                bar.classList.add('active');
+
+                // Update State
+                state['m' + id] = true;
+
+                // Cek apakah semua misi selesai
+                checkAllMissions();
+            }, MISSION_DURATION);
         }
-        
-        // Tampilkan pertama kali setelah 2 detik load halaman
-        setTimeout(cyclePromo, 2000);
-        
-        // Ulangi setiap 20 detik (15 detik hilang + 5 detik tampil)
-        setInterval(cyclePromo, 20000); 
-      }
-      
-      // --- 5. Logika Animasi Load Halaman ---
-      // Ditangani oleh CSS
-      
-    });
-  </script>
+
+        function checkAllMissions() {
+            if (state.m1 && state.m2 && state.m3) {
+                btnComplete.disabled = false;
+                btnComplete.classList.remove('btn-complete'); // Hapus style abu
+                btnComplete.classList.add('btn-complete'); // Reset base class
+                btnComplete.classList.add('ready'); // Tambah warna merah
+            }
+        }
+
+        // =========================================
+        // COMPLETE / VERIFICATION LOGIC
+        // =========================================
+        function startComplete() {
+            if (!state.m1 || !state.m2 || !state.m3) return; // Security check
+            if (state.verified) return;
+
+            // Buka Link Iklan
+            window.open(ADS_URL, '_blank');
+
+            // UI Loading
+            btnComplete.classList.remove('ready'); // Hilangkan animasi pulse
+            btnComplete.classList.add('loading');
+            
+            setTimeout(() => {
+                btnComplete.classList.remove('loading');
+                btnComplete.classList.add('verified');
+                btnComplete.innerHTML = `<svg class="btn-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg> <span>VERIFIED</span>`;
+                
+                state.verified = true;
+                enableDownload();
+            }, VERIFY_DURATION);
+        }
+
+        // =========================================
+        // DOWNLOAD LOGIC
+        // =========================================
+        function enableDownload() {
+            btnDownload.disabled = false;
+            btnDownload.classList.add('ready');
+            btnDownload.querySelector('span').innerText = "DOWNLOAD NOW";
+        }
+
+        function startDownload() {
+            if (state.verified) {
+                window.location.href = DOWNLOAD_URL;
+            } else {
+                alert("Selesaikan misi dan verifikasi terlebih dahulu!");
+            }
+        }
+
+    </script>
 </body>
 </html>
+
