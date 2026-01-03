@@ -49,7 +49,6 @@
     }
     
     body {
-      /* TUGAS 2: Terapkan font Quicksand ke seluruh halaman */
       font-family: 'Quicksand', Arial, sans-serif;
       background: var(--bg);
       color: var(--text-primary);
@@ -82,7 +81,6 @@
     }
     
     .header-left { display: flex; align-items: center; gap: 16px; }
-    /* Poin 1: Ganti Logo DZ menjadi WINK */
     .logo { width: 64px; height: 64px; background: var(--accent); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; font-size: 24px; }
     h1 { margin: 0; font-size: 20px; }
     h1 a { color: inherit; text-decoration: none; }
@@ -120,6 +118,19 @@
     .btn.complete { background: var(--success); color: var(--text-success); }
     .btn.complete:hover { filter: brightness(0.95); }
     .btn[disabled] { opacity: 0.6; cursor: progress; }
+
+    /* --- GAYA KHUSUS TOMBOL LOGIN (BARU) --- */
+    .btn-login {
+      background: var(--accent); /* Warna Biru */
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 12px rgba(11, 132, 255, 0.2);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    }
+    .btn-login:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(11, 132, 255, 0.35);
+      filter: brightness(1.1);
+    }
     
     .downloads { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 12px; }
     .download-btn { padding: 12px; border-radius: 10px; background: var(--download-btn-bg); text-align: center; cursor: pointer; transition: background 0.3s ease; }
@@ -127,16 +138,15 @@
     small { color: var(--text-muted); transition: color 0.3s ease; }
     footer { margin-top: 20px; color: var(--text-muted); font-size: 13px; transition: color 0.3s ease; }
     
-    /* 1. Gaya untuk link tutorial di footer (menggantikan .btn-mini) */
     footer a {
-      color: var(--warning); /* Warna agar menonjol, konsisten dengan .notice */
-      text-decoration: none; /* Hilangkan garis bawah default */
+      color: var(--warning); 
+      text-decoration: none; 
     }
     footer a:hover {
-      text-decoration: underline; /* Tampilkan garis bawah saat di-hover */
+      text-decoration: underline;
     }
 
-    /* --- 2. Switch Mode Gelap/Terang --- */
+    /* Switch Mode Gelap/Terang */
     .switch { position: relative; display: inline-block; width: 50px; height: 28px; }
     .switch input { opacity: 0; width: 0; height: 0; }
     .slider {
@@ -146,7 +156,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background-color: #3e4c5b; /* Latar slider saat mode gelap */
+      background-color: #3e4c5b;
       transition: .4s;
       border-radius: 28px;
     }
@@ -165,7 +175,7 @@
     input:checked + .slider { background-color: var(--accent); }
     input:checked + .slider:before { transform: translateX(22px); }
 
-    /* --- 3. Tombol Mengambang (FAB) --- */
+    /* Tombol Mengambang (FAB) */
     .fab {
       position: fixed;
       bottom: 20px;
@@ -189,13 +199,13 @@
       box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
     }
 
-    /* --- 4. Notifikasi Promo --- */
+    /* Notifikasi Promo */
     .promo-notification {
       position: fixed;
-      bottom: 30px; /* Sejajar dengan FAB */
-      right: 86px; /* 56px (FAB) + 20px (margin) + 10px (jarak) */
+      bottom: 30px; 
+      right: 86px; 
       background-color: var(--warning);
-      color: #1a1a1a; /* Teks gelap agar terbaca */
+      color: #1a1a1a; 
       padding: 8px 12px;
       border-radius: 8px;
       font-size: 14px;
@@ -203,25 +213,24 @@
       box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
       z-index: 999;
       opacity: 0;
-      transform: translateX(-30px); /* Mulai dari kiri */
+      transform: translateX(-30px); 
       transition: opacity 0.5s ease-out, transform 0.5s ease-out;
     }
     .promo-notification.show {
       opacity: 1;
-      transform: translateX(0); /* Slide ke posisi normal */
+      transform: translateX(0); 
     }
     .promo-notification.hide {
       opacity: 0;
-      transform: translateX(30px); /* Hilang ke kanan */
+      transform: translateX(30px); 
     }
     
-    /* --- 5. Animasi Load Halaman --- */
+    /* Animasi Load Halaman */
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
     .animate-on-load {
-      /* Sembunyikan elemen sebelum animasi */
       opacity: 0;
       animation: fadeInUp 0.6s ease-out forwards;
     }
@@ -230,14 +239,13 @@
       .versions { grid-template-columns: 1fr; }
       .downloads { grid-template-columns: 1fr; }
       .promo-notification {
-        /* Pindahkan notif ke atas FAB di mobile */
         width: calc(100% - 90px);
         text-align: center;
-        bottom: 86px; /* Di atas FAB */
+        bottom: 86px; 
         right: 20px;
         left: 20px;
         margin: 0 auto;
-        transform: translateY(20px); /* Mulai dari bawah */
+        transform: translateY(20px); 
       }
       .promo-notification.show {
         opacity: 1;
@@ -245,7 +253,7 @@
       }
       .promo-notification.hide {
         opacity: 0;
-        transform: translateY(20px); /* Hilang ke bawah */
+        transform: translateY(20px); 
       }
     }
   </style>
@@ -300,8 +308,9 @@
             <div class="download-btn" style="grid-column: span 2;">
               <button class="btn" data-ad="https://www.effectivegatecpm.com/z55w4h3qx2?key=b3e81a33d4a9ac5be6d499f5f1bd6274" data-dl="https://sfl.gl/wFSzGn8F" onclick="handleDownload(this)" style="margin-top: 8px;">Download</button>
             </div>
+            
             <div class="download-btn" style="grid-column: span 2;">
-              <button class="btn" data-ad="https://www.effectivegatecpm.com/z55w4h3qx2?key=b3e81a33d4a9ac5be6d499f5f1bd6274" data-dl="loginwink.html" onclick="handleDownload(this)" style="margin-top: 8px;">HOW TO LOGIN</button>
+               <a href="loginwink.html" class="btn btn-login" style="margin-top: 8px;">HOW TO LOGIN</a>
             </div>
           </div>
       </div>
@@ -318,7 +327,7 @@
         
         <div class="version">
           <h3>WINK v2.20.2 New Version</h3>
-          <p style="margin:8px 0">Premium Unlocked, Fitur terbaru. Catatan: di beberapa device bisa kurang kompatibel saat instal—silakan coba, panduan solusi ada di file.</p>
+          <p style="margin:8px 0">Premium Unlocked, Fitur terbaru. Catatan: di beberapa device bisa kurang kompatibel saat instal–silakan coba, panduan solusi ada di file.</p>
           <div class="downloads">
             <div class="download-btn" style="grid-column: span 2;">
               <button class="btn" data-ad="https://www.effectivegatecpm.com/z55w4h3qx2?key=b3e81a33d4a9ac5be6d499f5f1bd6274" data-dl="https://sfl.gl/t27nkg" onclick="handleDownload(this)" style="margin-top: 8px;">Download</button>
@@ -364,16 +373,10 @@
   </a>
 
   <div class="promo-notification" id="promo-notif">
-    Alight Motion Premium Rp. 4K  di sini👉
+    Alight Motion Premium Rp. 4K  di sini👇
   </div>
 
   <script>
-    // Poin 3: Konfirmasi Alur Download
-    // Fungsi handleDownload dan startCountdownOnButton SUDAH menjalankan alur yang diminta:
-    // 1. handleDownload -> window.open(adLink, '_blank') (Buka Iklan)
-    // 2. handleDownload -> startCountdownOnButton(btn, dlLink, 10) (Mulai Hitungan Mundur 10 detik)
-    // 3. startCountdownOnButton -> Setelah 10 detik, tombol diganti dengan link Unduh Sekarang (a.href = downloadUrl)
-    
     function isBusy(btn) { return btn.getAttribute('data-busy') === '1'; }
     function setBusy(btn, val) { btn.setAttribute('data-busy', val ? '1' : '0'); }
 
@@ -382,10 +385,8 @@
       const adLink = btn.getAttribute('data-ad') || 'https://example.com/ad';
       const dlLink = btn.getAttribute('data-dl') || 'https://example.com/download.apk';
 
-      // Poin 3: Buka link iklan di tab baru
       try { window.open(adLink, '_blank'); } catch (e) { console.log('Gagal membuka tab iklan', e); }
 
-      // Poin 3: Segera mulai hitungan mundur
       startCountdownOnButton(btn, dlLink, 10);
     }
 
@@ -402,7 +403,6 @@
           btn.textContent = `Menyiapkan... (${s}s)`;
         } else {
           clearInterval(id);
-          // Poin 3: Setelah hitungan mundur selesai, tombol berubah menjadi "Unduh Sekarang" dan mengarah ke link di atribut data-dl
           const a = document.createElement('a');
           a.className = 'btn complete';
           a.href = downloadUrl;
@@ -410,16 +410,12 @@
           a.rel = 'noopener noreferrer';
           a.textContent = 'Unduh Sekarang';
           btn.parentNode.replaceChild(a, btn);
-          // Note: setBusy(btn, false) tidak lagi relevan karena btn sudah diganti
         }
       }, 1000);
     }
     
-    // --- PENAMBAHAN FUNGSI BARU (Tidak Diubah) ---
-    
     document.addEventListener('DOMContentLoaded', function() {
       
-      // --- 2. Logika Mode Gelap/Terang ---
       const themeToggle = document.getElementById('theme-toggle');
       
       if (localStorage.getItem('theme') === 'light') {
@@ -441,7 +437,6 @@
         });
       }
       
-      // --- 4. Logika Notifikasi Promo ---
       const promoNotif = document.getElementById('promo-notif');
       if (promoNotif) {
         function cyclePromo() {
@@ -463,3 +458,4 @@
   </script>
 </body>
 </html>
+
