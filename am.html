@@ -1,490 +1,801 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>DATZON AM - Download</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DATZON - Alight Motion Mod</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
   
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
-  
-  <style>
-    :root {
-      /* Variabel Warna */
-      --accent: #0b84ff;
-      --success: #22c55e;
-      --warning: #ffb86b;
+<script src="https://pl27971081.effectivegatecpm.com/75/4d/89/754d89bb0699b528a6f6b846376e68cb.js"></script>
 
-      /* Mode Gelap (Default) */
-      --bg-dark: linear-gradient(180deg, #071023 0%, #07183a 100%);
-      --card-bg-dark: rgba(255, 255, 255, 0.03);
-      --card-border-dark: rgba(255, 255, 255, 0.06);
-      --notice-bg-dark: rgba(255, 255, 255, 0.02);
-      --version-bg-dark: rgba(255, 255, 255, 0.02);
-      --download-btn-bg-dark: linear-gradient(180deg, #06243f, #08304a);
-      --text-primary-dark: #e6eef8;
-      --text-muted-dark: #9aa4b2;
-      --text-success-dark: #04210f;
-
-      /* Mode Terang */
-      --bg-light: #f0f4f9;
-      --card-bg-light: #ffffff;
-      --card-border-light: #e2e8f0;
-      --notice-bg-light: #fffbeb;
-      --version-bg-light: #f8fafc;
-      --download-btn-bg-light: #e2e8f0;
-      --text-primary-light: #0f1724;
-      --text-muted-light: #475569;
-      --text-success-light: #ffffff;
-      
-      /* Inisialisasi variabel dinamis */
-      --bg: var(--bg-dark);
-      --card-bg: var(--card-bg-dark);
-      --card-border: var(--card-border-dark);
-      --notice-bg: var(--notice-bg-dark);
-      --version-bg: var(--version-bg-dark);
-      --download-btn-bg: var(--download-btn-bg-dark);
-      --text-primary: var(--text-primary-dark);
-      --text-muted: var(--text-muted-dark);
-      --text-success: var(--text-success-dark);
-    }
-    
-    body {
-      /* TUGAS 2: Terapkan font Quicksand ke seluruh halaman */
-      font-family: 'Quicksand', Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text-primary);
-      margin: 0;
-      padding: 28px;
-      transition: background 0.3s ease, color 0.3s ease;
-    }
-    
-    /* Tema Mode Terang */
-    body.light-mode {
-      --bg: var(--bg-light);
-      --card-bg: var(--card-bg-light);
-      --card-border: var(--card-border-light);
-      --notice-bg: var(--notice-bg-light);
-      --version-bg: var(--version-bg-light);
-      --download-btn-bg: var(--download-btn-bg-light);
-      --text-primary: var(--text-primary-light);
-      --text-muted: var(--text-muted-light);
-      --text-success: var(--text-success-light);
-    }
-
-    .container { max-width: 980px; margin: 0 auto; }
-    
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 18px;
-    }
-    
-    .header-left { display: flex; align-items: center; gap: 16px; }
-    /* Poin 1: Ganti Logo DZ menjadi WINK */
-    .logo { width: 64px; height: 64px; background: var(--accent); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; font-size: 24px; }
-    h1 { margin: 0; font-size: 20px; }
-    h1 a { color: inherit; text-decoration: none; }
-    
-    .card { background: var(--card-bg); padding: 18px; border-radius: 12px; margin-bottom: 14px; transition: background 0.3s ease; }
-    
-    .notice {
-      background: var(--notice-bg);
-      padding: 12px;
-      border-left: 4px solid var(--warning);
-      color: var(--text-muted);
-      border-radius: 8px;
-      transition: background 0.3s ease, color 0.3s ease;
-    }
-    
-    .versions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
-    .version { background: var(--version-bg); padding: 14px; border-radius: 10px; transition: background 0.3s ease; }
-    
-    .btn {
-      display: block;
-      width: 100%;
-      box-sizing: border-box;
-      text-align: center;
-      padding: 10px 14px;
-      border-radius: 10px;
-      background: var(--accent);
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      cursor: pointer;
-      border: none;
-      transition: filter 0.2s ease, background-color 0.2s ease;
-    }
-    .btn.secondary { background: transparent; border: 1px solid var(--card-border); }
-    .btn.complete { background: var(--success); color: var(--text-success); }
-    .btn.complete:hover { filter: brightness(0.95); }
-    .btn[disabled] { opacity: 0.6; cursor: progress; }
-    
-    .downloads { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 12px; }
-    .download-btn { padding: 12px; border-radius: 10px; background: var(--download-btn-bg); text-align: center; cursor: pointer; transition: background 0.3s ease; }
-    
-    small { color: var(--text-muted); transition: color 0.3s ease; }
-    footer { margin-top: 20px; color: var(--text-muted); font-size: 13px; transition: color 0.3s ease; }
-    
-    /* 1. Gaya untuk link tutorial di footer (menggantikan .btn-mini) */
-    footer a {
-      color: var(--warning); /* Warna agar menonjol, konsisten dengan .notice */
-      text-decoration: none; /* Hilangkan garis bawah default */
-    }
-    footer a:hover {
-      text-decoration: underline; /* Tampilkan garis bawah saat di-hover */
-    }
-
-    /* --- 2. Switch Mode Gelap/Terang --- */
-    .switch { position: relative; display: inline-block; width: 50px; height: 28px; }
-    .switch input { opacity: 0; width: 0; height: 0; }
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #3e4c5b; /* Latar slider saat mode gelap */
-      transition: .4s;
-      border-radius: 28px;
-    }
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 20px;
-      width: 20px;
-      left: 4px;
-      bottom: 4px;
-      background-color: white;
-      transition: .4s;
-      border-radius: 50%;
-    }
-    body.light-mode .slider { background-color: #ccc; }
-    input:checked + .slider { background-color: var(--accent); }
-    input:checked + .slider:before { transform: translateX(22px); }
-
-    /* --- 3. Tombol Mengambang (FAB) --- */
-    .fab {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 56px;
-      height: 56px;
-      background-color: var(--accent);
-      color: #fff;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      text-decoration: none;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      z-index: 1000;
-      transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
-    }
-    .fab:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-    }
-
-    /* --- 4. Notifikasi Promo --- */
-    .promo-notification {
-      position: fixed;
-      bottom: 30px; /* Sejajar dengan FAB */
-      right: 86px; /* 56px (FAB) + 20px (margin) + 10px (jarak) */
-      background-color: var(--warning);
-      color: #1a1a1a; /* Teks gelap agar terbaca */
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 500;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-      z-index: 999;
-      opacity: 0;
-      transform: translateX(-30px); /* Mulai dari kiri */
-      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-    }
-    .promo-notification.show {
-      opacity: 1;
-      transform: translateX(0); /* Slide ke posisi normal */
-    }
-    .promo-notification.hide {
-      opacity: 0;
-      transform: translateX(30px); /* Hilang ke kanan */
-    }
-    
-    /* --- 5. Animasi Load Halaman --- */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .animate-on-load {
-      /* Sembunyikan elemen sebelum animasi */
-      opacity: 0;
-      animation: fadeInUp 0.6s ease-out forwards;
-    }
-
-    @media (max-width: 720px) {
-      .versions { grid-template-columns: 1fr; }
-      .downloads { grid-template-columns: 1fr; }
-      .promo-notification {
-        /* Pindahkan notif ke atas FAB di mobile */
-        width: calc(100% - 90px);
-        text-align: center;
-        bottom: 86px; /* Di atas FAB */
-        right: 20px;
-        left: 20px;
-        margin: 0 auto;
-        transform: translateY(20px); /* Mulai dari bawah */
-      }
-      .promo-notification.show {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      .promo-notification.hide {
-        opacity: 0;
-        transform: translateY(20px); /* Hilang ke bawah */
-      }
-    }
-    /* Styling untuk daftar Info MOD yang mengikuti tema */
-.app-info {
-  text-align: left;
-  line-height: 1.6;
-  font-family: 'Quicksand', Arial, sans-serif; /* konsisten dengan situs */
-  color: var(--text-muted); /* otomatis mengikuti theme (dark/light) */
-  margin-top: 10px;
-}
-
-/* styling list */
-.app-info-list {
-  padding-left: 20px;
-  margin: 0;
-  list-style-position: outside;
-}
-
-/* jarak antar item dan ukuran teks yang nyaman */
-.app-info-list li {
-  margin: 6px 0;
-  font-size: 14px; /* ubah kalau mau lebih kecil/besar */
-  color: var(--text-primary); /* main text color untuk tiap item (lebih kontras) */
-  opacity: 0.95; /* sedikit lembut */
-}
-
-/* jika mau item lebih muted (sesuai preferensi), gunakan ini sebagai alternatif:
-.app-info-list li { color: var(--text-muted); font-size:14px; }
-*/
-
-/* responsif: sedikit kecil di layar kecil */
-@media (max-width: 420px) {
-  .app-info-list li { font-size: 13px; }
-}
-.version h3 {
-  text-align: center;
-  margin: 1px 0 10px 0;   /* margin atas 6px, bawah 10px */
-}
-  </style>
-  
-  <script>
-    (function() {
-      try {
-        const theme = localStorage.getItem('theme');
-        if (theme === 'light') {
-          document.documentElement.classList.add('light-mode');
+    <style>
+        /* ============================
+           RESET & VARIABLES
+           ============================ */
+        :root {
+            --primary-color: #4CAF50;
+            --primary-glow: rgba(76, 175, 80, 0.4);
+            --bg-color: #f4f6f8;
+            --text-color: #333;
+            --card-bg: #ffffff;
+            --card-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            --border-color: #eee;
+            --header-bg: rgba(255, 255, 255, 0.9);
+            --accent-purple: #6c5ce7;
+            --transition-speed: 0.3s;
         }
-      } catch (e) {
-        console.warn('Gagal membaca tema dari localStorage', e);
-      }
-    })();
-  </script>
-  <script type='text/javascript' src='//pl27971081.effectivegatecpm.com/75/4d/89/754d89bb0699b528a6f6b846376e68cb.js'></script>
+
+        body.dark-mode {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --card-bg: #1e1e1e;
+            --card-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            --border-color: #333;
+            --header-bg: rgba(30, 30, 30, 0.9);
+        }
+
+        * {
+            
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif; 
+    
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.5s ease, color 0.5s ease;
+            overflow-x: hidden;
+            padding-bottom: 80px; /* Space for footer/floating btn */
+        }
+
+        /* ============================
+           HEADER
+           ============================ */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px 20px;
+            background: var(--header-bg);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .brand {
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            text-decoration: none;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Switch Toggle Style */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider { background-color: var(--accent-purple); }
+        input:checked + .slider:before { transform: translateX(26px); }
+
+        /* Language Switcher */
+        .lang-switch {
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.2rem;
+            padding: 2px 8px;
+            border-radius: 5px;
+            background: rgba(0,0,0,0.05);
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .lang-switch:hover { background: rgba(0,0,0,0.1); }
+
+        /* ============================
+           MAIN CONTENT (CARDS)
+           ============================ */
+        .container {
+            max-width: 800px;
+            margin: 100px auto 20px;
+            padding: 0 15px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: background-color 0.5s ease;
+        }
+
+        .card:nth-child(2) { animation-delay: 0.2s; }
+
+        .card-header {
+            display: flex;
+            padding: 15px;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .card-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            object-fit: cover;
+            margin-right: 15px;
+            background: #ddd;
+        }
+
+        .card-info {
+            flex: 1;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .card-divider {
+            height: 2px;
+            width: 30px;
+            background: var(--accent-purple);
+            margin: 5px 0;
+        }
+
+        .card-subtitle {
+            font-size: 0.75rem;
+            color: #888;
+            font-weight: 600;
+        }
+
+        .dropdown-icon {
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+            color: var(--text-color);
+        }
+
+        .card.active .dropdown-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Dropdown Content */
+        .card-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            background: rgba(0,0,0,0.02);
+        }
+
+        .card.active .card-body {
+            max-height: 500px; /* Arbitrary large height */
+            transition: max-height 0.5s ease-in;
+        }
+
+        .mod-features {
+            padding: 0 20px 20px 20px;
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .mod-features li {
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .mod-features li::before {
+            content: "✓";
+            color: var(--primary-color);
+            margin-right: 8px;
+            font-weight: bold;
+        }
+
+        .download-btn {
+            display: block;
+            margin: 0 20px 20px 20px;
+            padding: 12px;
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px var(--primary-glow);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 15px var(--primary-glow);
+        }
+
+        /* ============================
+           FLOATING BUTTON
+           ============================ */
+        .floating-store {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: var(--accent-purple);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
+            z-index: 900;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .floating-store:hover { transform: scale(1.1); }
+        .floating-store svg { width: 24px; height: 24px; fill: white; }
+
+        /* Class to hide button during morph */
+        .floating-store.hidden {
+            transform: scale(0);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* ============================
+           MORPHING NOTIFICATION
+           ============================ */
+        .morph-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 950;
+        }
+
+        .morph-box {
+            position: absolute;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: white;
+            /* Start state matches floating button exact position */
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            opacity: 0; 
+            pointer-events: none;
+        }
+
+        .morph-box.visible {
+            opacity: 1;
+        }
+
+        .morph-box.active {
+            opacity: 1;
+            bottom: 50%;
+            right: 50%;
+            width: 300px;
+            height: auto;
+            min-height: 180px;
+            border-radius: 20px;
+            transform: translate(50%, 50%); /* Center it */
+            padding: 20px;
+            text-align: center;
+            pointer-events: auto;
+        }
+
+        .morph-content {
+            opacity: 0;
+            transition: opacity 0.3s;
+            transition-delay: 0.2s; /* Wait for morph */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .morph-box.active .morph-content {
+            opacity: 1;
+        }
+
+        .morph-text {
+            font-size: 0.95rem;
+            font-weight: bold;
+            line-height: 1.4;
+        }
+
+        .morph-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .store-link-btn {
+            background: white;
+            color: var(--accent-purple);
+            padding: 8px 15px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        /* ============================
+           PASSWORD MODAL
+           ============================ */
+        .password-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            /* Flex handled by JS */
+            display: none; 
+            justify-content: center;
+            align-items: center;
+        }
+
+        .password-box {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 350px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .password-box h2 {
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+
+        .password-box input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .password-box input:focus {
+            border-color: var(--accent-purple);
+        }
+
+        .enter-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--accent-purple);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .get-pass-link {
+            color: #888;
+            font-size: 0.9rem;
+            text-decoration: underline;
+        }
+        
+        /* ============================
+           FOOTER STYLES (NEW)
+           ============================ */
+        .site-footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: 30px;
+            /* Matches body padding-bottom approx to clear floating items */
+            margin-bottom: 20px; 
+        }
+
+        .footer-link {
+            color: var(--accent-purple);
+            font-weight: bold;
+            text-decoration: none;
+            /* Violet Glow */
+            text-shadow: 0 0 5px rgba(108, 92, 231, 0.4);
+            transition: text-shadow 0.3s;
+        }
+
+        .footer-link:hover {
+            text-shadow: 0 0 10px rgba(108, 92, 231, 0.8);
+        }
+
+        /* Animations Keyframes */
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-10px); }
+            40%, 80% { transform: translateX(10px); }
+        }
+
+        .shake-anim {
+            animation: shake 0.4s ease-in-out;
+        }
+
+    </style>
+
 </head>
-<body class="">
 
-  <div class="container">
-    <header class="animate-on-load" style="animation-delay: 0.1s;">
-      <div class="header-left">
-        <div class="logo">DZ</div>
-        <div>
-          <h1><a id="yt-link" href="https://youtube.com/@informatifdata?si=viFmGb0ReRhSiznE" target="_blank">DATZON AM</a></h1>
-          <small>Klik judul untuk ke channel YouTube</small>
+<body>
+
+    <div id="passwordModal" class="password-overlay">
+        <div class="password-box" id="passwordBox">
+            <h2 id="txt-enter-pass">Masukkan Password</h2>
+            <input type="password" id="passInput" placeholder="Password..." autocomplete="off"/>
+            <button class="enter-btn" onclick="checkPassword()">ENTER</button>
+            <a href="https://youtube.com/@informatifdata?si=PUpdjW7awWQtdS05" class="get-pass-link" target="_blank" id="txt-get-pass">Lihat Password</a>
         </div>
-      </div>
-      
-      <label class="switch" title="Ganti tema">
-        <input type="checkbox" id="theme-toggle">
-        <span class="slider round"></span>
-      </label>
+    </div>
+
+    <header>
+        <a href="https://youtube.com/@informatifdata?si=PUpdjW7awWQtdS05" target="_blank" class="brand">DATZON</a>
+        <div class="header-controls">
+            <div class="lang-switch" onclick="toggleLanguage()" title="Switch Language">
+                <span id="currentLangIcon">🇮🇩</span>
+            </div>
+            <label class="switch">
+                <input type="checkbox" id="themeToggle" onchange="toggleTheme()">
+                <span class="slider"></span>
+            </label>
+        </div>
     </header>
-    
-    <section class="card animate-on-load" style="animation-delay: 0.2s;">
-      <div class="notice">
-        <strong>Perhatian:</strong>
-        <p style="margin:8px 0 0">Saat mengklik tombol download akan diarahkan ke iklan. Jika muncul iklan atau halaman lain, <strong>klik kembali</strong> lalu klik tombol download lagi 2x tap.</p>
-      </div>
-        <div class="version">
-          <h3>ALIGHT MOTION MOD</h3>
-          <p style="margin:8px 0; color:var(--text-muted); font-size:12px;">Note : Tutorial login sudah ada di File Downloadnya, Tinggal ikutin aja yaa, Sudah Pasti Premium Work 100%, Alight Motion Versi 5.0.272.1028406, Thank You</p>
-          
-          <div class="downloads">
-            <div class="download-btn">
-              <h3 style="margin: 0 0 8px 0; font-size: 16px;">AM NEW VERSION</h3>
-              <button class="btn" 
-                data-ad="https://www.effectivegatecpm.com/z55w4h3qx2?key=b3e81a33d4a9ac5be6d499f5f1bd6274" 
-                data-dl="https://sfl.gl/SHsJ" 
-                onclick="handleDownload(this)">Download</button>
-            </div>
 
-            <div class="download-btn">
-              <h3 style="margin: 0 0 8px 0; font-size: 16px;">ALIGHT MOTION</h3>
-              <button class="btn" 
-                data-ad="https://www.effectivegatecpm.com/z55w4h3qx2?key=b3e81a33d4a9ac5be6d499f5f1bd6274" 
-                data-dl="https://sfl.gl/2Qe5r" 
-                onclick="handleDownload(this)">Download</button>
+    <div class="container">
+        
+        <div class="card">
+            <div class="card-header" onclick="toggleCard(this)">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh9ATilZZP5AGMxdFN3SqcNwHeY275gc2unDGdPEla9_S49qm2SolU57Na8la0E-1d8Gd9hnmuAFbGu0oa9QmBMhndeZIJYDzjmKvzdsK8Chb0I1H3KSqjryDJ1zKRO4Jy2R9CKrDHlq5-pSbsPdaXMhXSnI7jtn1s4ggwirY4vu433S3pdrp_KWA4P_ls/s320/Proyek%20Baru%2015%20%5BB8AE2FF%5D.png" alt="Icon" class="card-img">
+                <div class="card-info">
+                    <div class="card-title">ALIGHT MOTION | RAFAEL RT</div>
+                    <div class="card-divider"></div>
+                    <div class="card-subtitle">PREMIUM UNLOCKED NO PASSWORD</div>
+                </div>
+                <div class="dropdown-icon">▼</div>
             </div>
-          </div>
+            <div class="card-body">
+                <ul class="mod-features">
+                    <li>NO IKLAN</li>
+                    <li>NO ERROR</li>
+                    <li>SUPPORT 5MB+</li>
+                    <li>SUPPORT XML</li>
+                    <li>SUPPORT 2K60FPS</li>
+                    <li>NEW VERSION</li>
+                </ul>
+                <a href="https://sfl.gl/kpi5" class="download-btn">DOWNLOAD NOW</a>
+            </div>
         </div>
 
-      
-
-      
-        
-          
-          <div class="version">
-          <h3>INFO MOD APK VERSI TERBARU</h3>
-<div class="app-info">
-  <ul class="app-info-list">
-    <li>Premium Full Unlock</li>
-    <li>Mendukung Resolusi Ekspor hingga 4K</li>
-    <li>Bebas Iklan</li>
-    <li>Tanpa Watermark</li>
-    <li>Support Export Proyek</li>
-    <li>Export Stabil</li>
-    <li>Support 5MB+</li>
-    <li>Support XML</li>
-    <li>Tanpa Login Akun</li>
-    <li>Full Dark Mode</li>
-    <li>Versi Terbaru MOD APK Optimized</li>
-  </ul>
-</div>
-          
+        <div class="card">
+            <div class="card-header" onclick="toggleCard(this)">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh9ATilZZP5AGMxdFN3SqcNwHeY275gc2unDGdPEla9_S49qm2SolU57Na8la0E-1d8Gd9hnmuAFbGu0oa9QmBMhndeZIJYDzjmKvzdsK8Chb0I1H3KSqjryDJ1zKRO4Jy2R9CKrDHlq5-pSbsPdaXMhXSnI7jtn1s4ggwirY4vu433S3pdrp_KWA4P_ls/s320/Proyek%20Baru%2015%20%5BB8AE2FF%5D.png" alt="Icon" class="card-img">
+                <div class="card-info">
+                    <div class="card-title">ALIGHT MOTION | HANXXYMODS</div>
+                    <div class="card-divider"></div>
+                    <div class="card-subtitle">PREMIUM UNLOCKED NO PASSWORD</div>
+                </div>
+                <div class="dropdown-icon">▼</div>
             </div>
-          </div>
+            <div class="card-body">
+                <ul class="mod-features">
+                    <li>NO IKLAN</li>
+                    <li>NO ERROR</li>
+                    <li>SUPPORT 5MB+</li>
+                    <li>SUPPORT XML</li>
+                    <li>SUPPORT 2K60FPS</li>
+                    <li>SUPPORT EXPORT PROYEK</li>
+                    <li>NEW VERSION</li>
+                </ul>
+                <a href="https://sfl.gl/61RnCUrJ" class="download-btn">DOWNLOAD NOW</a>
+            </div>
         </div>
-        
-      </div> <footer class="animate-on-load" style="animation-delay: 0.3s;">
-        <p>Catatan: Semua link menggunakan <i>SafeLinku</i> dan <i>SafeFileku</i>, jadi jika tidak punya skil untuk melewati link tersebut tonton
-          <a href="https://youtu.be/gTUJfiU3pb0?si=Kp79XF6D36Yy06xV" target="_blank" rel="noopener noreferrer">
-            <i>Tutorial Youtube ya</i>
-          </a>, Thank You.
+
+    </div>
+
+    <div class="site-footer">
+        <p id="footer-text">
+            Catatan: Semua link menggunakan SafeLinku dan SafeFileku, jadi jika tidak punya skil untuk melewati link tersebut tonton <a href="https://youtu.be/gTUJfiU3pb0?si=iVYFcUAgZLpL0a8l" target="_blank" class="footer-link">KLIK DISINI</a> Untuk Tutorial Youtube ya, Thank You.
         </p>
-      </footer>
-    </section>
+    </div>
 
-  </div>
+    <a href="javascript:void(0)" class="floating-store" id="floatingStore" onclick="manualShowNotification()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+    </a>
 
-   <a href="https://dazon.web.app/store.html" target="_blank" rel="noopener noreferrer" class="fab" aria-label="Toko Store">
-    🛒
-  </a>
+    <div class="morph-overlay">
+        <div class="morph-box" id="morphBox">
+            <button class="morph-close" onclick="closeNotification()">✕</button>
+            <div class="morph-content">
+                <div class="morph-text" id="notif-text">
+                    MAU ALIGHT MOTION 
+PREMIUM 1 TAHUN CUMA RP. 2K?<br>
+                    YUK KLIK STORE DI BAWAH!<br>
+                    ADA BANYAK APLIKASI PREMIUM LAINNYA LOHH!!
+                </div>
+                <a href="https://dazon.web.app/store.html" class="store-link-btn" id="btn-visit-store">KLIK STORE</a>
+            </div>
+        </div>
+    </div>
 
-  <div class="promo-notification" id="promo-notif">
-    Alight Motion Premium Rp. 4K  di sini👉
-  </div>
+    <script>
+        // ============================
+        // CONFIGURATION
+        // ============================
+        const PASSWORD_KEY = 'datzon_unlocked';
+        const CORRECT_PASS = '1234'; 
+        
+        const translations = {
+            id: {
+                passTitle: "Masukkan Password",
+                getPass: "Lihat Password",
+                dlBtn: "DOWNLOAD SEKARANG",
+                storeBtn: "KLIK STORE",
+                notif: "MAU ALIGHT MOTION PREMIUM 1 TAHUN CUMA RP. 2K?<br>YUK KLIK STORE DI BAWAH!<br>ADA BANYAK APLIKASI PREMIUM LAINNYA LOHH!!",
+                footerHtml: 'Catatan: Semua link menggunakan SafeLinku dan SafeFileku, jadi jika tidak punya skil untuk melewati link tersebut tonton <a href="https://youtu.be/gTUJfiU3pb0?si=iVYFcUAgZLpL0a8l" target="_blank" class="footer-link">KLIK DISINI</a> Untuk Tutorial Youtube ya, Thank You.'
+            },
+            en: {
+                passTitle: "Enter Password",
+                getPass: "Get Password",
+                dlBtn: "DOWNLOAD NOW",
+                storeBtn: "VISIT STORE",
+                notif: "WANT ALIGHT MOTION PREMIUM 1 YEAR FOR $1?<br>CLICK STORE BELOW!<br>MANY OTHER PREMIUM APPS AVAILABLE!!",
+                footerHtml: 'Note: All links use SafeLinku and SafeFileku. If you don’t know how to bypass these links, please watch <a href="https://youtu.be/gTUJfiU3pb0?si=iVYFcUAgZLpL0a8l" target="_blank" class="footer-link">CLICK HERE</a> for the YouTube tutorial. Thank you.'
+            }
+        };
 
-  <script>
-    // Poin 3: Konfirmasi Alur Download
-    // Fungsi handleDownload dan startCountdownOnButton SUDAH menjalankan alur yang diminta:
-    // 1. handleDownload -> window.open(adLink, '_blank') (Buka Iklan)
-    // 2. handleDownload -> startCountdownOnButton(btn, dlLink, 10) (Mulai Hitungan Mundur 10 detik)
-    // 3. startCountdownOnButton -> Setelah 10 detik, tombol diganti dengan link Unduh Sekarang (a.href = downloadUrl)
-    
-    function isBusy(btn) { return btn.getAttribute('data-busy') === '1'; }
-    function setBusy(btn, val) { btn.setAttribute('data-busy', val ? '1' : '0'); }
+        // State
+        let currentLang = 'id';
+        let notifInterval;
 
-    function handleDownload(btn) {
-      if (isBusy(btn)) return;
-      const adLink = btn.getAttribute('data-ad') || 'https://example.com/ad';
-      const dlLink = btn.getAttribute('data-dl') || 'https://example.com/download.apk';
-
-      // Poin 3: Buka link iklan di tab baru
-      try { window.open(adLink, '_blank'); } catch (e) { console.log('Gagal membuka tab iklan', e); }
-
-      // Poin 3: Segera mulai hitungan mundur
-      startCountdownOnButton(btn, dlLink, 10);
-    }
-
-    function startCountdownOnButton(btn, downloadUrl, seconds) {
-      setBusy(btn, true);
-      btn.disabled = true;
-      const originalText = btn.textContent;
-      let s = seconds;
-      btn.textContent = `Menyiapkan... (${s}s)`;
-
-      const id = setInterval(() => {
-        s -= 1;
-        if (s > 0) {
-          btn.textContent = `Menyiapkan... (${s}s)`;
-        } else {
-          clearInterval(id);
-          // Poin 3: Setelah hitungan mundur selesai, tombol berubah menjadi "Unduh Sekarang" dan mengarah ke link di atribut data-dl
-          const a = document.createElement('a');
-          a.className = 'btn complete';
-          a.href = downloadUrl;
-          a.target = '_blank';
-          a.rel = 'noopener noreferrer';
-          a.textContent = 'Unduh Sekarang';
-          btn.parentNode.replaceChild(a, btn);
-          // Note: setBusy(btn, false) tidak lagi relevan karena btn sudah diganti
-        }
-      }, 1000);
-    }
-    
-    // --- PENAMBAHAN FUNGSI BARU (Tidak Diubah) ---
-    
-    document.addEventListener('DOMContentLoaded', function() {
-      
-      // --- 2. Logika Mode Gelap/Terang ---
-      const themeToggle = document.getElementById('theme-toggle');
-      
-      if (localStorage.getItem('theme') === 'light') {
-        document.body.classList.add('light-mode');
-        if(themeToggle) themeToggle.checked = true;
-      } else {
-        document.body.classList.remove('light-mode');
-      }
-
-      if (themeToggle) {
-        themeToggle.addEventListener('change', function() {
-          if (this.checked) {
-            document.body.classList.add('light-mode');
-            localStorage.setItem('theme', 'light');
-          } else {
-            document.body.classList.remove('light-mode');
-            localStorage.setItem('theme', 'dark');
-          }
+        // ============================
+        // INIT ON LOAD
+        // ============================
+        document.addEventListener('DOMContentLoaded', () => {
+            initPassword();
+            initTheme();
+            
+            // Start Notification Loop (15 seconds)
+            notifInterval = setInterval(showNotification, 15000);
         });
-      }
-      
-      // --- 4. Logika Notifikasi Promo ---
-      const promoNotif = document.getElementById('promo-notif');
-      if (promoNotif) {
-        function cyclePromo() {
-          promoNotif.classList.remove('hide');
-          promoNotif.classList.add('show');
-          
-          setTimeout(() => {
-            promoNotif.classList.remove('show');
-            promoNotif.classList.add('hide');
-          }, 5000);
+
+        // ============================
+        // 1. PASSWORD SYSTEM
+        // ============================
+        function initPassword() {
+            const isUnlocked = localStorage.getItem(PASSWORD_KEY);
+            const modal = document.getElementById('passwordModal');
+            
+            if (!isUnlocked) {
+                // Show modal flex
+                modal.style.display = 'flex';
+                document.getElementById('passInput').focus();
+            } else {
+                modal.style.display = 'none';
+            }
         }
+
+        function checkPassword() {
+            const input = document.getElementById('passInput');
+            const box = document.getElementById('passwordBox');
+            
+            if (input.value === CORRECT_PASS) {
+                // Correct: Save & Hide
+                localStorage.setItem(PASSWORD_KEY, 'true');
+                const modal = document.getElementById('passwordModal');
+                
+                modal.style.transition = 'opacity 0.5s ease';
+                modal.style.opacity = '0';
+                
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 500);
+            } else {
+                // Wrong: Shake
+                box.classList.remove('shake-anim');
+                void box.offsetWidth; // Trigger reflow
+                box.classList.add('shake-anim');
+                input.value = '';
+                input.focus();
+            }
+        }
+
+        // Enter Key Listener for Password
+        document.getElementById('passInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') checkPassword();
+        });
+
+        // ============================
+        // 2. THEME / DARK MODE
+        // ============================
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const toggle = document.getElementById('themeToggle');
+            
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                toggle.checked = true;
+            }
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        // ============================
+        // 3. LANGUAGE SWITCHER
+        // ============================
+        function toggleLanguage() {
+            currentLang = currentLang === 'id' ? 'en' : 'id';
+            
+            const t = translations[currentLang];
+            const icon = currentLang === 'id' ? '🇮🇩' : '🇬🇧';
+
+            // Update DOM Elements
+            document.getElementById('currentLangIcon').textContent = icon;
+            document.getElementById('txt-enter-pass').textContent = t.passTitle;
+            document.getElementById('txt-get-pass').textContent = t.getPass;
+            document.getElementById('notif-text').innerHTML = t.notif;
+            document.getElementById('btn-visit-store').textContent = t.storeBtn;
+            
+            // NEW: Update Footer
+            document.getElementById('footer-text').innerHTML = t.footerHtml;
+
+            // Update all download buttons
+            const btns = document.querySelectorAll('.download-btn');
+            btns.forEach(btn => btn.textContent = t.dlBtn);
+        }
+
+        // ============================
+        // 4. CARD DROPDOWN
+        // ============================
+        function toggleCard(headerElement) {
+            const card = headerElement.parentElement;
+            
+            // Close others (optional, remove logic if you want multiple open)
+            // document.querySelectorAll('.card').forEach(c => {
+            //     if(c !== card) c.classList.remove('active');
+            // });
+
+            card.classList.toggle('active');
+        }
+
+        // ============================
+        // 5. MORPHING NOTIFICATION
+        // ============================
         
-        setTimeout(cyclePromo, 2000);
-        
-        setInterval(cyclePromo, 20000); 
-      }
-      
-    });
-  </script>
+        function manualShowNotification() {
+            // Reset timer if manually clicked so it doesn't double pop
+            clearInterval(notifInterval);
+            notifInterval = setInterval(showNotification, 15000);
+            showNotification();
+        }
+
+        function showNotification() {
+            // If password modal is still visible, don't show notification
+            if(document.getElementById('passwordModal').style.display === 'flex') return;
+
+            const floatBtn = document.getElementById('floatingStore');
+            const morphBox = document.getElementById('morphBox');
+
+            // 1. Hide the real floating button with animation
+            floatBtn.classList.add('hidden');
+
+            // 2. Make morph box visible (state: small circle at bottom right)
+            morphBox.classList.add('visible');
+
+            // 3. Trigger expansion after short delay
+            setTimeout(() => {
+                morphBox.classList.add('active');
+            }, 50);
+        }
+
+        function closeNotification() {
+            const floatBtn = document.getElementById('floatingStore');
+            const morphBox = document.getElementById('morphBox');
+
+            // 1. Shrink box back to corner
+            morphBox.classList.remove('active');
+
+            // 2. Once shrunk, hide morph box and show real button
+            setTimeout(() => {
+                morphBox.classList.remove('visible');
+                floatBtn.classList.remove('hidden');
+            }, 600); // Matches CSS transition duration
+        }
+     
+    </script>
+  <script src="https://pl27971081.effectivegatecpm.com/75/4d/89/754d89bb0699b528a6f6b846376e68cb.js"></script>
 </body>
 </html>
