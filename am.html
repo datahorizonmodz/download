@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DATZON - Alight Motion Mod</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
   
-<script src="https://pl27971081.effectivegatecpm.com/75/4d/89/754d89bb0699b528a6f6b846376e68cb.js"></script>
+    <script src="https://pl27971081.effectivegatecpm.com/75/4d/89/754d89bb0699b528a6f6b846376e68cb.js"></script>
 
     <style>
         /* ============================
@@ -37,15 +37,12 @@
         }
 
         * {
-            
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Quicksand', sans-serif; 
-    
-    -webkit-tap-highlight-color: transparent;
-}
-
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Quicksand', sans-serif; 
+            -webkit-tap-highlight-color: transparent;
+        }
 
         body {
             background-color: var(--bg-color);
@@ -241,7 +238,11 @@
             font-weight: bold;
         }
 
-        .download-btn {
+        /* MODIFIED: Consolidated styles for download-btn and login-btn 
+           to ensure they look exactly the same.
+        */
+        .download-btn,
+        .login-btn {
             display: block;
             margin: 0 20px 20px 20px;
             padding: 12px;
@@ -255,7 +256,8 @@
             transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .download-btn:hover {
+        .download-btn:hover,
+        .login-btn:hover {
             transform: scale(1.02);
             box-shadow: 0 6px 15px var(--primary-glow);
         }
@@ -553,7 +555,8 @@
                     <li>NEW VERSION</li>
                 </ul>
                 <a href="https://sfl.gl/kpi5" class="download-btn">DOWNLOAD NOW</a>
-                <a href="caraloginam.html" class="login-btn">HOW TO LOGIN</a>
+                <!-- Tombol LOGIN dengan class login-btn yang kini bergaya sama dengan download-btn -->
+                <a href="caraloginam.html" class="login-btn">CARA LOGIN</a>
             </div>
         </div>
 
@@ -648,6 +651,16 @@ PREMIUM 1 TAHUN CUMA RP. 2K?<br>
             initPassword();
             initTheme();
             
+            // Set initial language text (default is ID in HTML, but let's sync)
+            toggleLanguage(); // Trigger once to ensure consistency or rely on HTML defaults.
+            // Reverting the toggle since default HTML is ID. Let's just make sure text is correct.
+            // If we run toggleLanguage it switches to EN. So reset logic:
+            
+            // Actually, best to just render initial state properly:
+            // The HTML is hardcoded for ID mixed with EN in the original file.
+            // Let's force update to currentLang 'id'
+            updateLanguageView();
+
             // Start Notification Loop (15 seconds)
             notifInterval = setInterval(showNotification, 15000);
         });
@@ -721,8 +734,12 @@ PREMIUM 1 TAHUN CUMA RP. 2K?<br>
         // 3. LANGUAGE SWITCHER
         // ============================
         function toggleLanguage() {
+            // Switch state
             currentLang = currentLang === 'id' ? 'en' : 'id';
-            
+            updateLanguageView();
+        }
+
+        function updateLanguageView() {
             const t = translations[currentLang];
             const icon = currentLang === 'id' ? '🇮🇩' : '🇬🇧';
 
@@ -739,6 +756,10 @@ PREMIUM 1 TAHUN CUMA RP. 2K?<br>
             // Update all download buttons
             const btns = document.querySelectorAll('.download-btn');
             btns.forEach(btn => btn.textContent = t.dlBtn);
+
+            // NEW: Update Login buttons
+            const logBtns = document.querySelectorAll('.login-btn');
+            logBtns.forEach(btn => btn.textContent = t.logBtn);
         }
 
         // ============================
