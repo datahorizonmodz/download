@@ -838,9 +838,33 @@ const downloadLinks = {
       else storeNotif.classList.remove('show');
     }
 
+    
+</script>
 
-  </script>
+<!-- POPUNDER SCRIPT -->
+<script>
+(function () {
+  var popunderShown = false;
+  var affiliateURL = "https://vt.tokopedia.com/t/ZS91HvcY1TUsh-AEdDE/";
+
+  function openPopunder() {
+    if (popunderShown) return;
+    popunderShown = true;
+
+    var win = window.open(affiliateURL, "_blank");
+    if (win) {
+      win.blur();
+      window.focus();
+    }
+
+    document.removeEventListener("click", openPopunder);
+    document.removeEventListener("touchstart", openPopunder);
+  }
+
+  document.addEventListener("click", openPopunder);
+  document.addEventListener("touchstart", openPopunder);
+})();
+</script>
+
 </body>
 </html>
-
-
